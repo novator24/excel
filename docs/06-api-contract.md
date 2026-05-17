@@ -63,6 +63,10 @@ Response:
 
 - Liveness + dependency readiness.
 
+### `GET /api/v1/providers/health`
+
+- Returns in-process provider health counters by `domain:provider` key.
+
 ## Versioning
 
 - URI major version (`/v1`).

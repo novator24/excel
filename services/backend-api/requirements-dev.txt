@@ -1,0 +1,2 @@
+testcontainers[postgres]==4.9.2
+pytest==9.0.3

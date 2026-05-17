@@ -11,13 +11,27 @@ FastAPI orchestrator for quote calculation and Excel export.
 ## Persistence
 
 - Uses SQLAlchemy with `DATABASE_URL` (PostgreSQL for prod, SQLite for local tests).
-- Schema bootstrap runs on startup via metadata creation.
+- Schema bootstrap can run automatically via `DB_AUTO_CREATE=true` (default local).
+- Alembic migration chain is in `alembic/versions`.
 - SQL migration template is stored in `migrations/001_init.sql`.
+- Recommended production mode:
+  - `DB_AUTO_CREATE=false`
+  - run `alembic upgrade head` in deployment job.
 
 ## Provider adapters
 
 - Primary/fallback provider chain is configured in `app/adapters/provider_registry.py`.
+- Domain-specific clients and normalizers:
+  - `app/adapters/domain_clients.py`
+  - `app/adapters/enrichment.py`
+- Provider health counters are exposed in `GET /api/v1/providers/health`.
 - Optional provider URLs can be passed via env vars:
   - `ROUTE_<PROVIDER>_URL`
   - `WEATHER_<PROVIDER>_URL`
   - `PORTS_<PROVIDER>_URL`
+
+## Integration tests
+
+- Install extras: `pip install -r services/backend-api/requirements-dev.txt`
+- Run Postgres container tests:
+  - `pytest -m integration services/backend-api/tests/integration`

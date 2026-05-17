@@ -18,7 +18,13 @@ class QuoteRepository:
     def __init__(self, session: Session) -> None:
         self.session = session
 
-    def save_quote(self, payload: dict[str, Any], result: dict[str, Any]) -> dict[str, Any]:
+    def save_quote(
+        self,
+        payload: dict[str, Any],
+        result: dict[str, Any],
+        risk_classifier: list[dict[str, Any]],
+        enrichment: dict[str, Any],
+    ) -> dict[str, Any]:
         request = QuoteRequestEntity(
             tenant_id=payload["tenant_id"],
             origin_port_code=payload["origin_port_code"],
@@ -35,6 +41,8 @@ class QuoteRepository:
             "tenant_id": payload["tenant_id"],
             "origin_port_code": payload["origin_port_code"],
             "destination_port_code": payload["destination_port_code"],
+            "risk_classifier": risk_classifier,
+            "enrichment": enrichment,
             **result,
         }
 

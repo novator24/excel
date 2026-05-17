@@ -71,9 +71,15 @@ def _risk_classifier(result: dict) -> list[dict]:
 def calculate_quote(payload: QuoteCalculateRequest) -> dict:
     try:
         payload_dict = payload.model_dump()
-        _ = _enrichment.resolve_provider("route", payload_dict)
-        _ = _enrichment.resolve_provider("weather", payload_dict)
-        _ = _enrichment.resolve_provider("ports", payload_dict)
+        route_enrichment = _enrichment.resolve_provider("route", payload_dict)
+        weather_enrichment = _enrichment.resolve_provider("weather", payload_dict)
+        ports_enrichment = _enrichment.resolve_provider("ports", payload_dict)
+        enrichment_bundle = {
+            "route": route_enrichment,
+            "weather": weather_enrichment,
+            "ports": ports_enrichment,
+            "health": _enrichment.health_snapshot(),
+        }
 
         calc_input = CalculationInput(
             origin_port_code=payload.origin_port_code,
@@ -100,10 +106,10 @@ def calculate_quote(payload: QuoteCalculateRequest) -> dict:
             cost_inputs=CostInput(**payload.cost_inputs.model_dump()),
         )
         result = _calculator.calculate(calc_input).model_dump()
+        risk_classifier = _risk_classifier(result)
         with session_scope() as session:
             repository = QuoteRepository(session)
-            stored = repository.save_quote(payload_dict, result)
-        stored["risk_classifier"] = _risk_classifier(stored)
+            stored = repository.save_quote(payload_dict, result, risk_classifier, enrichment_bundle)
         return stored
     except Exception as exc:  # noqa: BLE001
         raise HTTPException(status_code=400, detail=str(exc)) from exc
@@ -127,3 +133,8 @@ def create_excel(quote_id: str) -> dict:
         "checksum_sha256": doc_info["checksum"],
         "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
     }
+
+
+@router.get("/providers/health")
+def provider_health() -> dict[str, dict[str, int]]:
+    return _enrichment.health_snapshot()

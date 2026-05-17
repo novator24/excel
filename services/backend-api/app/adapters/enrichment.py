@@ -1,36 +1,32 @@
 from __future__ import annotations
 
-import os
 from typing import Any
 
-import httpx
-
-from .provider_registry import PROVIDER_REGISTRY
-
-
-def _env_key(domain: str, provider: str) -> str:
-    return f"{domain.upper()}_{provider.upper()}_URL"
+from .domain_clients import PortsClient, RouteClient, WeatherClient
+from .provider_health import ProviderHealthRegistry
 
 
 class EnrichmentService:
-    """Provider adapter facade with primary/fallback lookup."""
+    """Provider adapter facade with primary/fallback and health tracking."""
+
+    def __init__(self) -> None:
+        self.route_client = RouteClient()
+        self.weather_client = WeatherClient()
+        self.ports_client = PortsClient()
+        self.health = ProviderHealthRegistry()
 
     def resolve_provider(self, domain: str, payload: dict[str, Any]) -> dict[str, Any]:
-        config = PROVIDER_REGISTRY[domain]
-        candidates = [config.primary, *config.fallbacks]
+        clients = {
+            "route": self.route_client,
+            "weather": self.weather_client,
+            "ports": self.ports_client,
+        }
+        client = clients[domain]
+        response = client.fetch(payload)
+        self.health.mark(f"{domain}:{response['provider']}", response["status"])
+        normalized = client.normalize(response["data"])
+        return {**response, "normalized": normalized}
 
-        for provider in candidates:
-            endpoint = os.getenv(_env_key(domain, provider))
-            if not endpoint:
-                continue
-            try:
-                with httpx.Client(timeout=2.5) as client:
-                    response = client.post(endpoint, json=payload)
-                if response.status_code == 200:
-                    data = response.json()
-                    return {"provider": provider, "source": "remote", "data": data}
-            except Exception:  # noqa: BLE001
-                continue
-
-        return {"provider": candidates[-1], "source": "heuristic", "data": {}}
+    def health_snapshot(self) -> dict[str, dict[str, int]]:
+        return self.health.snapshot()
 
