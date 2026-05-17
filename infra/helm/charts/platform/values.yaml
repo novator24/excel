@@ -1,0 +1,12 @@
+global:
+  namespace: fertifreight
+  imagePullPolicy: IfNotPresent
+
+backendApi:
+  replicas: 2
+  image:
+    repository: ghcr.io/example/fertifreight-backend
+    tag: latest
+  service:
+    port: 80
+    targetPort: 8000

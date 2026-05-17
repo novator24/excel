@@ -1,0 +1,21 @@
+meta:
+  version: "2026-05-17"
+routing:
+  default_speed_knots: 11.5
+  arctic_ice_threshold: 0.45
+risk_weights:
+  weather_storm: 0.22
+  weather_fog: 0.11
+  weather_icing: 0.18
+  weather_wave: 0.10
+  ice: 0.20
+  polar_night: 0.08
+  piracy: 0.17
+  sanctions: 0.14
+  port: 0.19
+cost_coefficients:
+  risk_multiplier: 0.65
+  restricted_zone_penalty_usd: 25000
+  arctic_multiplier: 1.12
+negotiation:
+  spread_percent: 4.5

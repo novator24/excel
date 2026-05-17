@@ -1,0 +1,7 @@
+version: 2
+
+sources:
+  - name: oltp
+    schema: public
+    tables:
+      - name: quote_result_flat

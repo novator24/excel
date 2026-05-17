@@ -1,0 +1,10 @@
+name: "fertifreight"
+version: "1.0.0"
+profile: "fertifreight"
+model-paths: ["models"]
+
+models:
+  fertifreight:
+    +materialized: view
+    marts:
+      +materialized: table
