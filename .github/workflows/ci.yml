@@ -61,6 +61,9 @@ jobs:
       - name: Run Alembic migrations
         run: |
           alembic -c services/backend-api/alembic.ini upgrade head
+      - name: Check migration drift
+        run: |
+          python scripts/check_migration_drift.py --database-url "$DATABASE_URL" --skip-upgrade
       - name: Run Postgres service integration tests
         run: |
           pytest -o addopts= -m integration_service services/backend-api/tests/integration

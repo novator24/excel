@@ -44,3 +44,12 @@ FastAPI orchestrator for quote calculation and Excel export.
 ## Schema contract test
 
 - `tests/test_alembic_schema_contract.py` validates Alembic `head` equals expected application schema contract.
+
+## Migration drift check
+
+- Runs `alembic check` against a target database.
+- Local command:
+  - `python scripts/check_migration_drift.py --database-url "postgresql+psycopg://..."`
+- Script behavior:
+  - by default runs `alembic upgrade head` then `alembic check`
+  - use `--skip-upgrade` when DB is already migrated.

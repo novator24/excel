@@ -23,6 +23,7 @@
 - `integration-postgres-service` job:
   - starts PostgreSQL service container
   - runs `alembic upgrade head`
+  - runs migration drift guard (`alembic check`)
   - executes service-backed integration test suite.
 - `integration-testcontainers` job:
   - executes repository integration tests in isolated testcontainers runtime.
