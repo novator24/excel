@@ -25,7 +25,7 @@ jobs:
       - name: Test
         run: pytest
 
-  integration-postgres:
+  integration-postgres-service:
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -61,6 +61,27 @@ jobs:
       - name: Run Alembic migrations
         run: |
           alembic -c services/backend-api/alembic.ini upgrade head
-      - name: Run Postgres integration tests
+      - name: Run Postgres service integration tests
         run: |
-          pytest -o addopts= -m integration services/backend-api/tests/integration/test_api_postgres_migrated.py
+          pytest -o addopts= -m integration_service services/backend-api/tests/integration
+
+  integration-testcontainers:
+    runs-on: ubuntu-latest
+    env:
+      PYTHONPATH: services/backend-api
+      TESTCONTAINERS_RYUK_DISABLED: "true"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r services/backend-api/requirements.txt
+          pip install -r services/backend-api/requirements-dev.txt
+          pip install -r packages/calculator-engine/requirements.txt
+          pip install -r packages/excel-generator/requirements.txt
+      - name: Run testcontainers integration tests
+        run: |
+          pytest -o addopts= -m integration_container services/backend-api/tests/integration

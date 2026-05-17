@@ -13,6 +13,7 @@ except Exception:  # noqa: BLE001
 
 
 @pytest.mark.integration
+@pytest.mark.integration_container
 def test_quote_repository_persists_roundtrip():
     if PostgresContainer is None:
         pytest.skip("testcontainers is not installed")

@@ -20,10 +20,14 @@
 
 - `test` job:
   - lint + unit tests (default marker excludes integration).
-- `integration-postgres` job:
+- `integration-postgres-service` job:
   - starts PostgreSQL service container
   - runs `alembic upgrade head`
-  - executes migration-backed API integration test suite.
+  - executes service-backed integration test suite.
+- `integration-testcontainers` job:
+  - executes repository integration tests in isolated testcontainers runtime.
+
+Additionally, schema contract is checked in default tests: Alembic `head` must match expected revision constant.
 
 ## Promotion
 

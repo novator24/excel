@@ -10,6 +10,7 @@ from fastapi.testclient import TestClient
 
 
 @pytest.mark.integration
+@pytest.mark.integration_service
 def test_api_roundtrip_against_postgres_with_migrations():
     db_url = os.getenv("INTEGRATION_DATABASE_URL")
     if not db_url:

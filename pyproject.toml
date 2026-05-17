@@ -6,7 +6,9 @@ testpaths = [
   "packages/excel-generator/tests"
 ]
 markers = [
-  "integration: runs against external dependencies such as Postgres containers"
+  "integration: runs against external dependencies such as Postgres containers",
+  "integration_service: integration tests using CI-provided Postgres service",
+  "integration_container: integration tests using testcontainers runtime"
 ]
 
 [tool.ruff]

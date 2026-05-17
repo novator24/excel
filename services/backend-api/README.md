@@ -33,8 +33,14 @@ FastAPI orchestrator for quote calculation and Excel export.
 ## Integration tests
 
 - Install extras: `pip install -r services/backend-api/requirements-dev.txt`
-- Run Postgres container tests:
-  - `pytest -o addopts= -m integration services/backend-api/tests/integration`
-- Run migration-backed API integration test against existing Postgres:
+- Service-DB integration tests (existing Postgres):
+  - `pytest -o addopts= -m integration_service services/backend-api/tests/integration`
+- Testcontainers integration tests:
+  - `pytest -o addopts= -m integration_container services/backend-api/tests/integration`
+- Migration-backed API integration test against existing Postgres:
   - set `INTEGRATION_DATABASE_URL`
-  - `pytest -o addopts= -m integration services/backend-api/tests/integration/test_api_postgres_migrated.py`
+  - `pytest -o addopts= -m integration_service services/backend-api/tests/integration/test_api_postgres_migrated.py`
+
+## Schema contract test
+
+- `tests/test_alembic_schema_contract.py` validates Alembic `head` equals expected application schema contract.
