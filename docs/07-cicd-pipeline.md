@@ -16,6 +16,15 @@
 6. `gitops-update`: update environment values repo.
 7. Argo CD sync by policy.
 
+## CI execution model
+
+- `test` job:
+  - lint + unit tests (default marker excludes integration).
+- `integration-postgres` job:
+  - starts PostgreSQL service container
+  - runs `alembic upgrade head`
+  - executes migration-backed API integration test suite.
+
 ## Promotion
 
 - dev: auto after merge to main.

@@ -24,3 +24,43 @@ jobs:
         run: ruff check .
       - name: Test
         run: pytest
+
+  integration-postgres:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: fertifreight
+          POSTGRES_USER: ff_user
+          POSTGRES_PASSWORD: ff_password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U ff_user -d fertifreight"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+    env:
+      DATABASE_URL: postgresql+psycopg://ff_user:ff_password@localhost:5432/fertifreight
+      INTEGRATION_DATABASE_URL: postgresql+psycopg://ff_user:ff_password@localhost:5432/fertifreight
+      DB_AUTO_CREATE: "false"
+      PYTHONPATH: services/backend-api
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r services/backend-api/requirements.txt
+          pip install -r services/backend-api/requirements-dev.txt
+          pip install -r packages/calculator-engine/requirements.txt
+          pip install -r packages/excel-generator/requirements.txt
+      - name: Run Alembic migrations
+        run: |
+          alembic -c services/backend-api/alembic.ini upgrade head
+      - name: Run Postgres integration tests
+        run: |
+          pytest -o addopts= -m integration services/backend-api/tests/integration/test_api_postgres_migrated.py

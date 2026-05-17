@@ -34,4 +34,7 @@ FastAPI orchestrator for quote calculation and Excel export.
 
 - Install extras: `pip install -r services/backend-api/requirements-dev.txt`
 - Run Postgres container tests:
-  - `pytest -m integration services/backend-api/tests/integration`
+  - `pytest -o addopts= -m integration services/backend-api/tests/integration`
+- Run migration-backed API integration test against existing Postgres:
+  - set `INTEGRATION_DATABASE_URL`
+  - `pytest -o addopts= -m integration services/backend-api/tests/integration/test_api_postgres_migrated.py`
