@@ -1,0 +1,1 @@
+@Codebase экспортируй без изменений CV_BASOVI.docx в test/2/CV_BASOVI_JD.pdf и экспортируй без изменений RESUME_BASOVI.docx в test/2/RESUME_BASOVI_JD.pdf
