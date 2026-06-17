@@ -1,4 +1,12 @@
 CV_BASOVI 
 LETTER_BASOVI 
 RESUME_BASOVI 
-ORIGINAL: День добрый. Мне рекомендовали обратиться к Вам. Мне нравится компания, где Вы работаете, и я хочу работать с Вами. Можете через кадровый отдел порекомендовать меня по вакансии AI Process Optimization Specialist, HFM, Larnaca, Cyprus ? Заранее спасибо. Вот ссылка на моё cv - bit.ly/cv_basovi , ссылка на моё resume - bit.ly/resume_basovi , ссылка на моё cover letter - bit.ly/cover_letter | RU: День добрый. Мне рекомендовали обратиться к Вам. Мне нравится компания, где Вы работаете, и я хочу работать с Вами. Можете через кадровый отдел порекомендовать меня по вакансии AI Process Optimization Specialist, HFM, Larnaca, Cyprus ? Заранее спасибо. Вот ссылка на моё cv - bit.ly/cv_basovi , ссылка на моё resume - bit.ly/resume_basovi , ссылка на моё cover letter - bit.ly/cover_letter
+ORIGINAL: Good afternoon. I was advised to contact you. I really like the company where you work, and 
+I would like to work with you. Could you please recommend me through your HR team for 
+the vacancy Software Engineer (Rust) - Remote Work | REF#289819, BairesDev, Cyprus 
+(Remote)? Thank you in advance. Here is the link to my CV - bit.ly/cv_basovi , link to my 
+resume - bit.ly/resume_basovi , link to my cover letter - bit.ly/cover_letter | EN: Good afternoon. I was advised to contact you. I really like the company where you work, and 
+I would like to work with you. Could you please recommend me through your HR team for 
+the vacancy Software Engineer (Rust) - Remote Work | REF#289819, BairesDev, Cyprus 
+(Remote)? Thank you in advance. Here is the link to my CV - bit.ly/cv_basovi , link to my 
+resume - bit.ly/resume_basovi , link to my cover letter - bit.ly/cover_letter | RU: Добрый день. Мне посоветовали связаться с вами. Мне нравится компания, где вы работаете, и я хотел бы работать с вами. Не могли бы вы порекомендовать меня через ваш HR-отдел на вакансию Software Engineer (Rust) - Remote Work | REF#289819, BairesDev, Cyprus (Remote)? Заранее спасибо. Вот ссылка на мое CV - bit.ly/cv_basovi, ссылка на мое резюме - bit.ly/resume_basovi, ссылка на мое сопроводительное письмо - bit.ly/cover_letter
