@@ -44,3 +44,27 @@ This repository uses a monorepo to optimize a small team (1 engineer-analyst):
 - Full audit trail for inputs, coefficients, provider responses, and outputs.
 - Strict separation: acquisition -> normalization -> calculation -> presentation -> export.
 - Cloud-native deployment for AKS with GitOps.
+
+## Additional MVP: `n1_openteam2026`
+
+This repository also contains a standalone hackathon MVP in `n1_openteam2026` based on the first-priority track from `NICK.md` (object detection + tracking + routing simulation).
+
+### Ubuntu deployment steps (`n1_openteam2026`)
+
+1. Install base packages:
+   - `sudo apt update`
+   - `sudo apt install -y python3 python3-venv python3-pip curl`
+2. Create environment:
+   - `cd n1_openteam2026`
+   - `python3 -m venv .venv`
+   - `source .venv/bin/activate`
+3. Install dependencies:
+   - `pip install --upgrade pip`
+   - `pip install -r requirements.txt`
+4. Run demo:
+   - `PYTHONPATH=src python -m n1_openteam2026.run_demo`
+5. Run API:
+   - `PYTHONPATH=src uvicorn n1_openteam2026.api:app --host 0.0.0.0 --port 8000`
+6. Smoke test:
+   - `curl http://127.0.0.1:8000/health`
+   - `curl -X POST "http://127.0.0.1:8000/simulate" -H "Content-Type: application/json" -d '{"frames":80,"seed":21,"max_track_distance":20.0}'`

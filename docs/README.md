@@ -18,3 +18,7 @@
 16. `16-mcp-server-recommendations.md`
 17. `17-rbac-and-access-matrix.md`
 18. `18-interactions-data-and-event-flows.md`
+
+## Additional architecture note
+
+- `../n1_openteam2026/docs/README.md` - architecture of the standalone sorting MVP (priority task #1 from `NICK.md`): frame simulation, detection, tracking, routing, metrics, and API boundary.
