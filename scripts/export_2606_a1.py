@@ -117,7 +117,7 @@ def to_russian(_text: str) -> str:
     return (
         "Добрый день. Мне рекомендовали обратиться к вам. Мне нравится компания, где вы работаете, "
         "и я хочу работать с вами. Можете через отдел кадров порекомендовать меня на вакансию "
-        "Backend Engineer (Fully Remote), японская компания в сфере недвижимости (AI и SaaS), Tokyo, Japan? "
+        "Big Data Architect, a global IT services and digital consulting firm, Milpitas, CA, USA? "
         "Заранее спасибо. Вот ссылка на мое cv - bit.ly/cv_basovi, ссылка на мое resume - bit.ly/resume_basovi, "
         "ссылка на мое cover letter - bit.ly/cover_letter."
     )
@@ -128,8 +128,8 @@ def write_link_file(welcome_pdf: Path) -> None:
     if not original_text:
         original_text = (
             "Day good. I was recommended to contact you. I like the company where you work, and I want to work with you. "
-            "Could you please recommend me through HR for the position Backend Engineer (Fully Remote), "
-            "a Japan-based real estate AI and SaaS company, Tokyo, Japan? "
+            "Could you please recommend me through HR for the position Big Data Architect, "
+            "a global IT services and digital consulting firm, Milpitas, CA, USA? "
             "Thank you in advance. Here is the link to my cv - bit.ly/cv_basovi, "
             "link to my resume - bit.ly/resume_basovi, link to my cover letter - bit.ly/cover_letter."
         )
